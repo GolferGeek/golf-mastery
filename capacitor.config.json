@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Every Shot",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
