@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/party"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add new Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item class="ion-no-padding">
+    <ion-label position="stacked">Course Name</ion-label>
+    <ion-input
+      [(ngModel)]="name"
+      type="text"
+      placeholder="What's your course's name?"
+    >
+    </ion-input>
+  </ion-item>
+
+  <ion-button
+    [disabled]="!isValidForm()"
+    expand="block"
+    (click)="createCourse({name})"
+  >
+    Create Course
+  </ion-button>
+</ion-content>

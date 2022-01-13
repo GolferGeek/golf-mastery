@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "every-shot": {
+      "hosting": {
+        "app": [
+          "every-shot"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "every-shot"
+  }
+}
