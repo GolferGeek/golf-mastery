@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -13,12 +14,17 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideFunctions, getFunctions, connectFunctionsEmulator } from '@angular/fire/functions';
 import { provideStorage, getStorage, connectStorageEmulator } from '@angular/fire/storage';
 import { connectFirestoreEmulator, enableIndexedDbPersistence } from 'firebase/firestore';
+import { HomePage } from './home/home.page';
+import { AuthenticationPage } from './authentication/authentication.page';
+import { AuthFormComponent } from './authentication/auth-form/auth-form.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomePage, AuthenticationPage, AuthFormComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),

@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthenticationPage } from './authentication/authentication.page';
 import { LoggedInGuard } from './authentication/guards/logged-in.guard';
 import { LoggedOutGuard } from './authentication/guards/logged-out.guard';
+import { HomePage } from './home/home.page';
 
 const routes: Routes = [
   {
@@ -11,31 +13,21 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () =>
-      import('./home/home.module').then((m) => m.HomePageModule)
+    component: HomePage,
   },
   {
     path: 'login',
-    loadChildren: () =>
-      import('./authentication/authentication.module').then(
-        (m) => m.AuthenticationPageModule
-      ),
+    component: AuthenticationPage,
     canActivate: [LoggedOutGuard],
   },
   {
     path: 'signup',
-    loadChildren: () =>
-      import('./authentication/authentication.module').then(
-        (m) => m.AuthenticationPageModule
-      ),
+    component: AuthenticationPage,
     canActivate: [LoggedOutGuard],
   },
   {
     path: 'reset',
-    loadChildren: () =>
-      import('./authentication/authentication.module').then(
-        (m) => m.AuthenticationPageModule
-      ),
+    component: AuthenticationPage,
     canActivate: [LoggedOutGuard],
   },
   {
