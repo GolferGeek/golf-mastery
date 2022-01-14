@@ -7,5 +7,6 @@ export const environment = {
     authDomain: 'every-shot.firebaseapp.com',
     messagingSenderId: '189204177583',
   },
-  production: true
+  production: true,
+  useEmulators: false,
 };

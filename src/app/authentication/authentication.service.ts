@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
   Auth,
+  authState,
   createUserWithEmailAndPassword,
+  getIdTokenResult,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
@@ -14,14 +16,33 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private readonly auth: Auth) {}
+  authState$;
+  user: User = this.auth.currentUser;
+  isLoggedIn: boolean = this.auth.currentUser && true;
+  isLoggedOut = !this.isLoggedIn;
+  pictureUrl = '';
 
-  getUser(): User {
-    return this.auth.currentUser;
+  constructor(private readonly auth: Auth) {
+    this.user = this.auth.currentUser;
+    this.isLoggedIn = this.auth.currentUser && true;
+    this.isLoggedOut = !this.isLoggedIn;
+    this.pictureUrl = '';
+    this.authState$ = authState(auth);
+    this.authState$.subscribe((user) => {
+      this.user = user;
+      // getIdTokenResult(this.user) // this.auth.idTokenResult
+      //   .then((token) => {
+      //     this.roles = (token?.claims as unknown as UserRoles) ?? {
+      //       admin: false,
+      //     };
+      //     this.jwtToken = token.token;
+      //   });
+      this.isLoggedIn = !!user;
+      this.isLoggedOut = !this.isLoggedIn;
+      this.pictureUrl = user ? user.photoURL : null;
+    });
   }
-  getUser$(): Observable<User> {
-    return of(this.getUser());
-  }
+
   login(email: string, password: string): Promise<UserCredential> {
     return signInWithEmailAndPassword(this.auth, email, password);
   }

@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthenticationGuard } from './authentication/authentication.guard';
+import { LoggedInGuard } from './authentication/guards/logged-in.guard';
+import { LoggedOutGuard } from './authentication/guards/logged-out.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
-    path: 'folder/:id',
+    path: 'home',
     loadChildren: () =>
-      import('./folder/folder.module').then((m) => m.FolderPageModule),
+      import('./home/home.module').then((m) => m.HomePageModule)
   },
   {
     path: 'login',
@@ -19,6 +20,7 @@ const routes: Routes = [
       import('./authentication/authentication.module').then(
         (m) => m.AuthenticationPageModule
       ),
+    canActivate: [LoggedOutGuard],
   },
   {
     path: 'signup',
@@ -26,6 +28,7 @@ const routes: Routes = [
       import('./authentication/authentication.module').then(
         (m) => m.AuthenticationPageModule
       ),
+    canActivate: [LoggedOutGuard],
   },
   {
     path: 'reset',
@@ -33,17 +36,19 @@ const routes: Routes = [
       import('./authentication/authentication.module').then(
         (m) => m.AuthenticationPageModule
       ),
+    canActivate: [LoggedOutGuard],
   },
   {
     path: 'course',
     loadChildren: () =>
       import('./course/course.module').then((m) => m.CoursePageModule),
+    canActivate: [LoggedInGuard],
   },
   {
     path: 'course/:courseId',
     loadChildren: () =>
       import('./course/course.module').then((m) => m.CoursePageModule),
-    canActivate: [AuthenticationGuard],
+    canActivate: [LoggedInGuard],
   },
 ];
 

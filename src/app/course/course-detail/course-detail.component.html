@@ -1,3 +1,17 @@
-<p>
-  course-detail works!
-</p>
+<ion-header *ngIf="currentCourse$ | async as course">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/course"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ course?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="currentCourse$ | async as course">
+  <p>Course Information:</p>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger" (click)="deleteCourse(course?.id)">
+      <ion-icon name="remove"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
