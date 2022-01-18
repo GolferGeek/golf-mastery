@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
 import { AuthenticationService } from './authentication/authentication.service';
+import { UserInfoService } from './user-info/user-info.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -9,7 +10,7 @@ import { AuthenticationService } from './authentication/authentication.service';
 })
 export class AppComponent {
   user: User;
-  constructor(public readonly authService: AuthenticationService, private readonly router: Router) {
+  constructor(public readonly authService: AuthenticationService, private readonly userInfoService: UserInfoService, private readonly router: Router) {
   }
 
   logout() {

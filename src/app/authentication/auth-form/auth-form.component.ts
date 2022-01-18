@@ -11,7 +11,9 @@ export class AuthFormComponent implements OnInit {
   @Input() actionButtonText = 'Sign In';
   @Input() isPasswordResetPage = false;
   @Output() formSubmitted = new EventEmitter<any>();
+
   public authForm: FormGroup;
+
   constructor(private readonly formBuilder: FormBuilder) {}
   ngOnInit() {
     this.initializeForm(!this.isPasswordResetPage);

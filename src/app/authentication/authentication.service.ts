@@ -1,45 +1,39 @@
+import { NgPluralCase } from '@angular/common';
 import { Injectable } from '@angular/core';
 import {
   Auth,
+  User as AuthUser,
   authState,
   createUserWithEmailAndPassword,
-  getIdTokenResult,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  User,
   UserCredential,
 } from '@angular/fire/auth';
+import { doc, docData, Firestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  authState$;
-  user: User = this.auth.currentUser;
+  authState$: Observable<AuthUser>;
+  user$: Observable<AuthUser>;
   isLoggedIn: boolean = this.auth.currentUser && true;
   isLoggedOut = !this.isLoggedIn;
-  pictureUrl = '';
 
-  constructor(private readonly auth: Auth) {
-    this.user = this.auth.currentUser;
+  constructor(private readonly auth: Auth, private firestore: Firestore) {
     this.isLoggedIn = this.auth.currentUser && true;
     this.isLoggedOut = !this.isLoggedIn;
-    this.pictureUrl = '';
     this.authState$ = authState(auth);
-    this.authState$.subscribe((user) => {
-      this.user = user;
-      // getIdTokenResult(this.user) // this.auth.idTokenResult
-      //   .then((token) => {
-      //     this.roles = (token?.claims as unknown as UserRoles) ?? {
-      //       admin: false,
-      //     };
-      //     this.jwtToken = token.token;
-      //   });
-      this.isLoggedIn = !!user;
-      this.isLoggedOut = !this.isLoggedIn;
-      this.pictureUrl = user ? user.photoURL : null;
+    this.authState$.subscribe((authUser: AuthUser) => {
+      if (authUser) {
+        this.isLoggedIn = true;
+        this.isLoggedOut = false;
+      } else {
+        this.isLoggedIn = false;
+        this.isLoggedOut = true;
+      }
     });
   }
 
@@ -55,4 +49,5 @@ export class AuthenticationService {
   logout(): Promise<void> {
     return signOut(this.auth);
   }
+
 }
