@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Course } from '../course.model';
+import { Course } from '../models/course.model';
 import { CourseService } from '../course.service';
+import { Form, NgForm } from '@angular/forms';
+import { PracticeAreaType } from '../models/practice-area.model';
 
 @Component({
   selector: 'app-create-course',
@@ -9,19 +11,31 @@ import { CourseService } from '../course.service';
   styleUrls: ['./create-course.component.scss'],
 })
 export class CreateCourseComponent implements OnInit {
-  name: string;
+  course: Course;
 
   constructor(private readonly router: Router,
-  private readonly courseService: CourseService) { }
+    private readonly courseService: CourseService) {
+    this.course = {
+      id: '',
+      name: '',
+      description: '',
+      website: '',
+      notes: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+      phone: '',
+      practiceAreas: [],
+      tees: []
+    }
+  }
 
   ngOnInit() {}
 
-  async createCourse(course: Partial<Course>) {
-    await this.courseService.createCourse(course);
-    console.log(course);
-    await this.router.navigateByUrl('course');
-  }
-  isValidForm(): boolean {
-    return this.name && true;
+  async onSubmit(form: NgForm) {
+    console.log(form.value);
+    await this.courseService.createCourse(form.value);
+    await this.router.navigateByUrl('course-list');
   }
 }

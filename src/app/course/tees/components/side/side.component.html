@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
       <ion-back-button defaultHref="/course"></ion-back-button>
     </ion-buttons>
-    <ion-title>Create New Course</ion-title>
+    <ion-title>Create New Side</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
@@ -13,11 +13,11 @@
       <ion-row>
         <ion-col >
           <ion-item class="ion-no-padding">
-            <ion-label position="stacked">Course Name</ion-label>
+            <ion-label position="stacked">Name</ion-label>
             <ion-input
               name="name"
               required
-              [(ngModel)]="course.name"
+              [(ngModel)]="side.name"
               type="text"
               placeholder="name?"
             >

@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Course } from '../models/course.model';
 import { CourseService } from '../course.service';
+import { Course } from '../models/course.model';
 
 @Component({
-  selector: 'app-course-detail',
-  templateUrl: './course-detail.component.html',
-  styleUrls: ['./course-detail.component.scss'],
+  selector: 'app-edit-course',
+  templateUrl: './edit-course.page.html',
+  styleUrls: ['./edit-course.page.scss'],
 })
-export class CourseDetailComponent implements OnInit {
+export class EditCoursePage implements OnInit {
   currentCourse$: Observable<Course>;
-  courseId: string
+  courseId: string;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -25,7 +26,7 @@ export class CourseDetailComponent implements OnInit {
   }
 
   initializeCourse(courseId: string): void {
-    this.currentCourse$ = this.courseService.getCourse(courseId);
+    this.currentCourse$ = this.courseService.currentCourse$;
   }
 
   deleteCourse(): void {
@@ -35,9 +36,11 @@ export class CourseDetailComponent implements OnInit {
 
   editCourse(): void {
     this.router.navigateByUrl(`course/edit/${this.courseId}`);
-  }Í
+  }
 
-  navigateToTees() {
-    this.router.navigateByUrl(`course/${this.courseId}/tees`);
+  async onSubmit(form: NgForm) {
+    console.log(form.value);
+    await this.courseService.updateCourse(this.courseId, form.value);
+    await this.router.navigateByUrl(`course/${this.courseId}`);
   }
 }

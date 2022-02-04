@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 
-import { CoursePage } from './course.page';
+import { CourseListPage } from './course-list/course-list.page';
 import { CreateCourseComponent } from './create-course/create-course.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CoursePage,
+    component: CourseListPage,
   },
   {
     path: 'new',
@@ -18,6 +18,20 @@ const routes: Routes = [
     path: ':courseId',
     component: CourseDetailComponent,
   },
+  {
+    path: 'edit/:courseId',
+    loadChildren: () =>
+      import('./edit-course/edit-course.module').then(
+        (m) => m.EditCoursePageModule
+      ),
+  },
+  {
+    path: ':courseId/tees',
+    loadChildren: () =>
+      import('./tees/tees.module').then(
+        (m) => m.TeesModule
+      ),
+  }
 ];
 
 @NgModule({

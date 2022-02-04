@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CoursePageRoutingModule } from './course-routing.module';
 
-import { CoursePage } from './course.page';
+import { CourseListPage } from './course-list/course-list.page';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 
@@ -17,6 +17,6 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
     IonicModule,
     CoursePageRoutingModule
   ],
-  declarations: [CoursePage, CreateCourseComponent, CourseDetailComponent]
+  declarations: [CourseListPage, CreateCourseComponent, CourseDetailComponent]
 })
 export class CoursePageModule {}

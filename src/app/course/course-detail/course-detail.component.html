@@ -1,17 +1,88 @@
 <ion-header *ngIf="currentCourse$ | async as course">
   <ion-toolbar>
     <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
       <ion-back-button defaultHref="/course"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ course?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="currentCourse$ | async as course">
-  <p>Course Information:</p>
+<ion-content class="ion-padding">
+  <ion-grid *ngIf="(currentCourse$ | async) as course">
+    <ion-row>
+      <ion-col>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Course Name</ion-label>
+          {{ course.name }}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Phone</ion-label>
+          {{ course.phone }}
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Website</ion-label>
+          {{ course.website }}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">State</ion-label>
+          {{ course.state }}
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">City</ion-label>
+          {{ course.city }}
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Street</ion-label>
+          {{ course.street }}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Description</ion-label>
+          {{ course.description }}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Notes</ion-label>
+          {{ course.notes }}
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="navigateToTees()">Maintain tees</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="danger" (click)="deleteCourse(course?.id)">
+    <ion-fab-button color="danger" (click)="deleteCourse()">
       <ion-icon name="remove"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="start" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="editCourse()">
+      <ion-icon name="pencil-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
