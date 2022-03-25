@@ -122,6 +122,11 @@
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col>
+          <app-maintain-score-card [scoreCard]="course.scoreCard"></app-maintain-score-card>
+        </ion-col>
+      </ion-row>
     </ion-grid>
     <ion-button
       [disabled]="f.invalid"

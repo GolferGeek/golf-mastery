@@ -13,7 +13,7 @@ import { Course } from './models/course.model';
 import { BehaviorSubject, from, map, Observable, switchMap } from 'rxjs';
 import { updateDoc } from 'firebase/firestore';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
-import { Tees } from './models/tees.model';
+import { Tees } from './models/scoreCard.model';
 
 @Injectable({
   providedIn: 'root',

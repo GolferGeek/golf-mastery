@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "local-dev": "firebase emulators:start --only firestore,auth --export-on-exit=./dev-data --import=./dev-data",
+    "local": "firebase emulators:start --only firestore,auth --export-on-exit=./dev-data --import=./dev-data",
     "empty-emulator": "firebase emulators:start --only auth,firestore,storage",
     "emulator-export": "firebase emulators:export ./dev-data"
   },

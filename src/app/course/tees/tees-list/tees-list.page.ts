@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CourseService } from '../../course.service';
-import { Tees } from '../../models/tees.model';
+import { Tees } from '../../models/scoreCard.model';
 
 @Component({
   selector: 'app-tees-list',

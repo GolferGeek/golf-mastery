@@ -1,5 +1,5 @@
 import { PracticeArea } from "./practice-area.model";
-import { Tees } from "./tees.model";
+import { ScoreCard } from "./scoreCard.model";
 
 export interface Course {
   id: string;
@@ -13,5 +13,5 @@ export interface Course {
   phone: string;
   notes: string;
   practiceAreas?: PracticeArea[];
-  tees?: Tees[]
+  scoreCard: ScoreCard
 }

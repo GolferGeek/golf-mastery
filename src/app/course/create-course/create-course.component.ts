@@ -27,7 +27,7 @@ export class CreateCourseComponent implements OnInit {
       zip: '',
       phone: '',
       practiceAreas: [],
-      tees: []
+      scoreCard: {teeSet: []}
     }
   }
 
