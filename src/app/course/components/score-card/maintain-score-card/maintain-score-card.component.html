@@ -1,20 +1,42 @@
 <div>
   <h1>Tee Boxes</h1>
-  <ion-button (click)="addTeeBox()">Add Tee Box</ion-button>
-
   <ion-grid>
     <ion-row>
       <ion-col>Color</ion-col>
-      <ion-col>Color</ion-col>
-      <ion-col>Color</ion-col>
-      <ion-col>Color</ion-col>
-      <ion-col>Color</ion-col>
-      <ion-col>Color</ion-col>
-      <ion-col>Color</ion-col>
-      <ion-col>Color</ion-col>
+      <ion-col>Distance</ion-col>
+      <ion-col>Par</ion-col>
+      <ion-col>M Rating</ion-col>
+      <ion-col>W Rating</ion-col>
+      <ion-col>M Slope</ion-col>
+      <ion-col>W Slope</ion-col>
+      <ion-col>Notes</ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><ion-input [(ngModel)]="editTees.color"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="editTees.distance"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="editTees.par"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="editTees.mensRating"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="editTees.womensRating"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="editTees.mensSlope"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="editTees.womensSlope"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="editTees.notes"></ion-input></ion-col>
+      <ion-col><ion-button (click)="addTeeBox()" expand="block" fill="clear">
+        Add Tees
+      </ion-button></ion-col>
     </ion-row>
   </ion-grid>
-  <div *ngFor="let tees of scoreCard.teeSet">
-
-  </div>
+      <ion-row *ngFor="let tees of scoreCard.teeSet">
+      <ion-col><ion-input [(ngModel)]="tees.color"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="tees.distance"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="tees.par"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="tees.mensRating"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="tees.womensRating"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="tees.mensSlope"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="tees.womensSlope"></ion-input></ion-col>
+      <ion-col><ion-input [(ngModel)]="tees.notes"></ion-input></ion-col>
+      <ion-col><ion-button (click)="deleteTeeBox(tees)" expand="block" fill="clear">
+        Remove Tees
+      </ion-button></ion-col>
+    </ion-row>
 </div>

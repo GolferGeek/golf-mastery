@@ -7,17 +7,17 @@
     <ion-title>Edit Course</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding" *ngIf="(currentCourse$ | async) as course">
+<ion-content class="ion-padding" *ngIf="currentCourse">
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <ion-grid>
       <ion-row>
-        <ion-col >
+        <ion-col>
           <ion-item class="ion-no-padding">
             <ion-label position="stacked">Course Name</ion-label>
             <ion-input
               name="name"
               required
-              [(ngModel)]="course.name"
+              [(ngModel)]="currentCourse.name"
               type="text"
               placeholder="name?"
             >
@@ -32,7 +32,7 @@
             <ion-input
               size="2"
               name="phone"
-              [(ngModel)]="course.phone"
+              [(ngModel)]="currentCourse.phone"
               type="phone"
               placeholder="phone"
             >
@@ -45,7 +45,7 @@
             <ion-input
               size="2"
               name="website"
-              [(ngModel)]="course.website"
+              [(ngModel)]="currentCourse.website"
               type="website"
               placeholder="website"
             >
@@ -60,7 +60,7 @@
             <ion-input
               size="1"
               name="state"
-              [(ngModel)]="course.state"
+              [(ngModel)]="currentCourse.state"
               type="text"
               placeholder="state"
             >
@@ -73,7 +73,7 @@
             <ion-input
               size="2"
               name="city"
-              [(ngModel)]="course.city"
+              [(ngModel)]="currentCourse.city"
               type="text"
               placeholder="city"
             >
@@ -86,7 +86,7 @@
             <ion-input
               size="4"
               name="street"
-              [(ngModel)]="course.street"
+              [(ngModel)]="currentCourse.street"
               type="text"
               placeholder="street"
             >
@@ -100,7 +100,7 @@
             <ion-label position="stacked">Description</ion-label>
             <ion-textarea
               name="description"
-              [(ngModel)]="course.description"
+              [(ngModel)]="currentCourse.description"
               type="text"
               placeholder="description"
             >
@@ -114,7 +114,7 @@
             <ion-label position="stacked">Notes</ion-label>
             <ion-textarea
               name="notes"
-              [(ngModel)]="course.notes"
+              [(ngModel)]="currentCourse.notes"
               type="text"
               placeholder="notes"
             >
@@ -122,14 +122,16 @@
           </ion-item>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col>
+          <app-maintain-score-card
+            [scoreCard]="currentCourse.scoreCard"
+          ></app-maintain-score-card>
+        </ion-col>
+      </ion-row>
     </ion-grid>
-    <ion-button
-      [disabled]="f.invalid"
-      expand="block"
-      type="submit"
-    >
+    <ion-button [disabled]="f.invalid" expand="block" type="submit">
       Save
     </ion-button>
   </form>
-
 </ion-content>

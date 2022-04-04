@@ -20,8 +20,7 @@ import { Tees } from './models/scoreCard.model';
 })
 export class CourseService {
   courses$: Observable<Course[]>;
-  currentCourse$: Observable<Course>;
-  currentTees$: Observable<Tees[]>;
+  currentCourse: Course;
 
   constructor(
     private readonly authService: AuthenticationService,
@@ -32,6 +31,7 @@ export class CourseService {
       idField: 'id',
     }) as Observable<Course[]>;
   }
+
   async createCourse(course: Partial<Course>) {
     const courseCollection = collection(this.firestore, `courses/`);
     await addDoc(courseCollection, course);
@@ -39,19 +39,9 @@ export class CourseService {
 
   getCourse(courseId: string) {
     const courseRef = doc(this.firestore, `courses/${courseId}`);
-    this.currentCourse$ = docData(courseRef, {
+    docData(courseRef, {
       idField: 'id',
-    }) as Observable<Course>;
-
-    this.getTees(courseId);
-    return this.currentCourse$;
-  }
-
-  getTees(courseId: string) {
-    const teesCollection = collection(this.firestore, `courses/${courseId}/tees`);
-    this.currentTees$ = collectionData(teesCollection, {
-      idField: 'id',
-    }) as Observable<Tees[]>;
+    }).subscribe(course => this.currentCourse = course as Course);
   }
 
   async deleteCourse(courseId: string) {

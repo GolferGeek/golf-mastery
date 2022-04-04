@@ -35,7 +35,7 @@ export class CreateCourseComponent implements OnInit {
 
   async onSubmit(form: NgForm) {
     console.log(form.value);
-    await this.courseService.createCourse(form.value);
-    await this.router.navigateByUrl('course-list');
+    await this.courseService.createCourse(this.course);
+    await this.router.navigateByUrl('course');
   }
 }

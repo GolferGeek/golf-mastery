@@ -1,20 +1,20 @@
-<ion-header *ngIf="currentCourse$ | async as course">
+<ion-header *ngIf="currentCourse">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
       <ion-back-button defaultHref="/course"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ course?.name }}</ion-title>
+    <ion-title>{{ currentCourse?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-grid *ngIf="(currentCourse$ | async) as course">
+  <ion-grid *ngIf="currentCourse">
     <ion-row>
       <ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Course Name</ion-label>
-          {{ course.name }}
+          {{ currentCourse.name }}
         </ion-item>
       </ion-col>
     </ion-row>
@@ -22,13 +22,13 @@
       <ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Phone</ion-label>
-          {{ course.phone }}
+          {{ currentCourse.phone }}
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Website</ion-label>
-          {{ course.website }}
+          {{ currentCourse.website }}
         </ion-item>
       </ion-col>
     </ion-row>
@@ -36,19 +36,19 @@
       <ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">State</ion-label>
-          {{ course.state }}
+          {{ currentCourse.state }}
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">City</ion-label>
-          {{ course.city }}
+          {{ currentCourse.city }}
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Street</ion-label>
-          {{ course.street }}
+          {{ currentCourse.street }}
         </ion-item>
       </ion-col>
     </ion-row>
@@ -56,7 +56,7 @@
       <ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Description</ion-label>
-          {{ course.description }}
+          {{ currentCourse.description }}
         </ion-item>
       </ion-col>
     </ion-row>
@@ -64,7 +64,7 @@
       <ion-col>
         <ion-item class="ion-no-padding">
           <ion-label position="stacked">Notes</ion-label>
-          {{ course.notes }}
+          {{ currentCourse.notes }}
         </ion-item>
       </ion-col>
     </ion-row>

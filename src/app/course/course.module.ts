@@ -10,6 +10,7 @@ import { CourseListPage } from './course-list/course-list.page';
 import { CreateCourseComponent } from './create-course/create-course.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { MaintainScoreCardComponent } from './components/score-card/maintain-score-card/maintain-score-card.component';
+import { EditCoursePage } from './edit-course/edit-course.page';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { MaintainScoreCardComponent } from './components/score-card/maintain-sco
     IonicModule,
     CoursePageRoutingModule
   ],
-  declarations: [CourseListPage, CreateCourseComponent, CourseDetailComponent, MaintainScoreCardComponent]
+  declarations: [CourseListPage, CreateCourseComponent, EditCoursePage, CourseDetailComponent, MaintainScoreCardComponent]
 })
 export class CoursePageModule {}

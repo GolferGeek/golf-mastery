@@ -10,22 +10,24 @@ import { CourseService } from '../course.service';
   styleUrls: ['./course-detail.component.scss'],
 })
 export class CourseDetailComponent implements OnInit {
-  currentCourse$: Observable<Course>;
-  courseId: string
+  currentCourse: Course;
+  courseId: string;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly courseService: CourseService,
     private readonly router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.courseId = this.route.snapshot.paramMap.get('courseId');
-    this.initializeCourse(this.courseId);
+    this.courseService.getCourse(this.courseId);
   }
 
-  initializeCourse(courseId: string): void {
-    this.currentCourse$ = this.courseService.getCourse(courseId);
+  ionViewWillEnter() {
+    this.courseService.getCourse(this.courseId);
+    this.currentCourse = this.courseService.currentCourse;
   }
 
   deleteCourse(): void {
@@ -35,7 +37,8 @@ export class CourseDetailComponent implements OnInit {
 
   editCourse(): void {
     this.router.navigateByUrl(`course/edit/${this.courseId}`);
-  }Í
+  }
+  Í;
 
   navigateToTees() {
     this.router.navigateByUrl(`course/${this.courseId}/tees`);

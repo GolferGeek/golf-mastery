@@ -4,6 +4,7 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 import { CourseListPage } from './course-list/course-list.page';
 import { CreateCourseComponent } from './create-course/create-course.component';
+import { EditCoursePage } from './edit-course/edit-course.page';
 
 const routes: Routes = [
   {
@@ -20,18 +21,8 @@ const routes: Routes = [
   },
   {
     path: 'edit/:courseId',
-    loadChildren: () =>
-      import('./edit-course/edit-course.module').then(
-        (m) => m.EditCoursePageModule
-      ),
+    component: EditCoursePage
   },
-  {
-    path: ':courseId/tees',
-    loadChildren: () =>
-      import('./tees/tees.module').then(
-        (m) => m.TeesModule
-      ),
-  }
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CourseService } from '../course.service';
 import { Course } from '../models/course.model';
 
@@ -11,8 +11,10 @@ import { Course } from '../models/course.model';
   styleUrls: ['./edit-course.page.scss'],
 })
 export class EditCoursePage implements OnInit {
-  currentCourse$: Observable<Course>;
+  currentCourse: Course;
   courseId: string;
+
+  courseSubscription: Subscription;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -22,11 +24,12 @@ export class EditCoursePage implements OnInit {
 
   ngOnInit() {
     this.courseId = this.route.snapshot.paramMap.get('courseId');
-    this.initializeCourse(this.courseId);
+    this.courseService.getCourse(this.courseId);
   }
 
-  initializeCourse(courseId: string): void {
-    this.currentCourse$ = this.courseService.currentCourse$;
+  ionViewWillEnter() {
+    this.courseService.getCourse(this.courseId);
+    this.currentCourse = this.courseService.currentCourse;
   }
 
   deleteCourse(): void {
@@ -40,7 +43,7 @@ export class EditCoursePage implements OnInit {
 
   async onSubmit(form: NgForm) {
     console.log(form.value);
-    await this.courseService.updateCourse(this.courseId, form.value);
+    await this.courseService.updateCourse(this.courseId, this.currentCourse);
     await this.router.navigateByUrl(`course/${this.courseId}`);
   }
 }

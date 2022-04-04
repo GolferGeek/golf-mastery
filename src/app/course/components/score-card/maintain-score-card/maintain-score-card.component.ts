@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ScoreCard } from 'src/app/course/models/scoreCard.model';
-import { TeesDetailPage } from 'src/app/course/tees/tees-detail/tees-detail.page';
+import { ScoreCard, Tees } from 'src/app/course/models/scoreCard.model';
 
 @Component({
   selector: 'app-maintain-score-card',
@@ -10,13 +9,22 @@ import { TeesDetailPage } from 'src/app/course/tees/tees-detail/tees-detail.page
 export class MaintainScoreCardComponent implements OnInit {
 
   @Input() scoreCard: ScoreCard;
+  blankTees = { color: '', distance: null, par: 4, mensRating: null, womensRating: null, mensSlope: null, womensSlope: null, notes: '' };
+  editTees: Tees;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.editTees = { ...this.blankTees };
+  }
 
   addTeeBox() {
-    this.scoreCard.teeSet.push({color: '', distance: 200, par: 72, mensRating: 72, mensSlope: 120, womensRating: 72, womensSlope: 120, notes: ''})
+    this.scoreCard.teeSet.push({ ...this.editTees })
+    this.editTees = { ...this.blankTees };
+  }
+
+  deleteTeeBox(teesToDelete: Tees) {
+    this.scoreCard.teeSet = this.scoreCard.teeSet.filter(tees => tees.color !== teesToDelete.color);
   }
 
 }
