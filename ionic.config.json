@@ -1,0 +1,7 @@
+{
+  "name": "golf-mastery",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
