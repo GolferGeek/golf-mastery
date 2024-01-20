@@ -1,8 +1,8 @@
 {
-  "name": "hiverarchy",
+  "name": "golf-mastery",
   "version": "0.0.1",
   "author": "GolferGeek",
-  "homepage": "https://golfergeek.com/",
+  "homepage": "https://golf-mastery.com/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
