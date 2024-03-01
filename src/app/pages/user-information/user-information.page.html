@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>User Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="userService.user$ | async as currentUser">
+  <main>
+    <div id="name-and-photo">
+      <img [src]="currentUser.picture" alt="current user image">
+      <h1>{{ currentUser.userName }}</h1>
+    </div>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Handicap:</ion-label>
+        <ion-input type="number" placeholder="15" required="true" [(ngModel)]="currentUser.handicap"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Gender</ion-label>
+        <ion-select [(ngModel)]="currentUser.gender">
+          <ion-select-option value="M">Male</ion-select-option>
+          <ion-select-option value="F">Female</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Home State:</ion-label>
+        <ion-select [(ngModel)]="currentUser.state">
+          <ion-select-option *ngFor="let state of states" [value]="state.abbreviation">
+            {{ state.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <div id="maintain-buttons">
+      <ion-button expand="full" routerLink="clubs">Maintain Clubs</ion-button>
+      <ion-button expand="full" routerLink="routines">Maintain Routines</ion-button>
+      <ion-button expand="full" routerLink="club-combinations">Maintain Club Combinations</ion-button>
+    </div>
+  </main>
+
+
+</ion-content>

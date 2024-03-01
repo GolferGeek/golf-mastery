@@ -1,90 +1,139 @@
 import { Injectable } from '@angular/core';
 import {
-  Auth,
-  createUserWithEmailAndPassword,
-  getAdditionalUserInfo,
+  getAuth,
   GoogleAuthProvider,
-  signOut,
-  OAuthProvider,
-  sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signInWithPopup,
-  updateProfile,
-  user,
-  User as FirebaseUser,
+  signOut,
+  User,
 } from '@angular/fire/auth';
+import { getFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-export interface User {
-  uid: string;
-  displayName: string;
-  email: string;
-}
+import { AlertController } from '@ionic/angular';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  afUser$: Observable<FirebaseUser | null>;
-  currentUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  currentUser$ = this.currentUserSubject.asObservable();
-  currentUser: User;
-  constructor(private auth: Auth, private router: Router) {
-    this.afUser$ = user(auth);
-    this.afUser$.subscribe((newUser) => {
-      this.currentUserSubject.next(newUser);
+  loggedIn = false;
+  fbAuth = getAuth();
+  firestore = getFirestore();
+
+  constructor(
+    private router: Router,
+    private alertController: AlertController
+  ) {
+    this.fbAuth.onAuthStateChanged(async (fbUser) => {
+      if (fbUser) {
+        this.loggedIn = true;
+      } else {
+        this.loggedIn = false;
+      }
     });
-    this.currentUser$.subscribe(newCurrentUser => {
-      this.currentUser = newCurrentUser;
+  }
+
+  login(email: string, password: string) {
+    signInWithEmailAndPassword(this.fbAuth, email, password)
+      .then(() => {
+        this.router.navigateByUrl('/home');
+      })
+      .catch(async (error) => {
+        let message = '';
+        switch (error.code) {
+          case 'auth/invalid-email':
+            message = 'Invalid email';
+            break;
+          case 'auth/user-disabled':
+            message = 'User disabled';
+            break;
+          case 'auth/user-not-found':
+            message = 'User not found';
+            break;
+          case 'auth/wrong-password':
+            message = 'Wrong password';
+            break;
+          default:
+            message = 'Unknown error';
+        }
+        const alert = await this.alertController.create({
+          message: message,
+          buttons: [
+            {
+              text: 'Ok',
+              role: 'cancel',
+            },
+          ],
+        });
+        await alert.present();
+      });
+  }
+
+  async register(email: string, password: string) {
+    createUserWithEmailAndPassword(this.fbAuth, email, password)
+      .then(() => {
+        this.router.navigateByUrl('/home');
+      })
+      .catch(async (error) => {
+        let message = '';
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            message = 'Email already in use';
+            break;
+          case 'auth/invalid-email':
+            message = 'Invalid email';
+            break;
+          case 'auth/operation-not-allowed':
+            message = 'Operation not allowed';
+            break;
+          case 'auth/weak-password':
+            message = 'Password too weak';
+            break;
+          default:
+            message = 'Unknown error';
+        }
+        const alert = await this.alertController.create({
+          message: message,
+          buttons: [
+            {
+              text: 'Ok',
+              role: 'cancel',
+            },
+          ],
+        });
+        await alert.present();
+      });
+  }
+
+  resetPassword(email: string) {
+    sendPasswordResetEmail(this.fbAuth, email).then(() => {
+      this.displayResetAlert();
     });
   }
 
-  async emailLogin(email: string, password: string): Promise<any> {
-    return await signInWithEmailAndPassword(this.auth, email, password);
-  }
-
-  async emailSignUp(email: string, password: string): Promise<void> {
-    const credential = await createUserWithEmailAndPassword(
-      this.auth,
-      email,
-      password
-    );
-    updateProfile(credential.user, {
-      displayName: credential.user.displayName,
+  signInWithGoogle() {
+    signInWithPopup(this.fbAuth, new GoogleAuthProvider()).then(() => {
+      this.router.navigateByUrl('/home');
     });
-    sendEmailVerification(credential.user);
-
-    // create user in db
-  }
-
-  async resetPassword(email: string): Promise<any> {
-    // sends reset password email
-    sendPasswordResetEmail(this.auth, email);
-  }
-
-  async oAuthLogin(p: string): Promise<void> {
-    // get provider, sign in
-    const provider = new OAuthProvider(p);
-    const credential = await signInWithPopup(this.auth, provider);
-    const additionalInfo = getAdditionalUserInfo(credential);
-
-    // create user in db
-    if (additionalInfo?.isNewUser) {
-    }
-  }
-
-  async googleLogin() {
-    const provider = new GoogleAuthProvider();
-    const credential = await signInWithPopup(this.auth, provider);
-    const additionalInfo = getAdditionalUserInfo(credential);
-
-    if (additionalInfo?.isNewUser) {
-
-    }
-    this.router.navigateByUrl('/home');
   }
 
   logout() {
-    signOut(this.auth);
+    signOut(this.fbAuth);
+  }
+
+  async displayResetAlert() {
+    const alert = await this.alertController.create({
+      message:
+        'We just sent you a password reset link, please check your email.',
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          handler: () => {
+            this.router.navigateByUrl('');
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }

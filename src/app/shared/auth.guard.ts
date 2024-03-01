@@ -8,7 +8,7 @@ export class AuthGuard  {
 
   canActivate() {
 
-    if (this.authService.currentUser) {
+    if (this.authService.loggedIn) {
       return true;
     } else {
       this.router.navigateByUrl('/home');

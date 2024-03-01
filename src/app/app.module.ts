@@ -24,17 +24,24 @@ import {
   getRemoteConfig,
 } from '@angular/fire/remote-config';
 import { provideStorage, getStorage } from '@angular/fire/storage';
-import { LeftNavComponent } from './left-nav/left-nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { Auth, connectAuthEmulator } from '@angular/fire/auth';
 import { connectFirestoreEmulator, Firestore } from '@angular/fire/firestore';
 import { connectFunctionsEmulator, Functions } from '@angular/fire/functions';
-import { LoginPage } from './login/login.page';
-import { RegisterPage } from './login/register/register.page';
+import { LeftNavComponent } from './components/left-nav/left-nav/left-nav.component';
+import { LoginLogoutComponent } from './components/left-nav/login-logout/login-logout.component';
+import { UserInfoComponent } from './components/left-nav/user-info/user-info.component';
+import { NavComponent } from './components/left-nav/nav/nav.component';
 
 @NgModule({
-  declarations: [AppComponent, LeftNavComponent, LoginPage, RegisterPage],
+  declarations: [
+    AppComponent,
+    LeftNavComponent,
+    NavComponent,
+    LoginLogoutComponent,
+    UserInfoComponent,
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,

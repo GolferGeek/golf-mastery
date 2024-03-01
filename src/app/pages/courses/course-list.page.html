@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Courses</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="course-list" *ngIf="courses">
+    <ion-item *ngFor="let course of courses" class="course">
+      <ion-label>{{course.name}}</ion-label>
+      <ion-label>{{course.state}}</ion-label>
+      <ion-button [routerLink]="['edit-course', course.id]">Edit</ion-button>
+      <ion-button (click)="courseService.deleteCourse(course.id)">Delete</ion-button>
+    </ion-item>
+  </div>
+  <ion-button routerLink='new-course'>Add Course</ion-button>
+</ion-content>

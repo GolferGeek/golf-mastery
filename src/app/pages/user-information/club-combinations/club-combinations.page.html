@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Club Combinations</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="right-buttons" *ngIf="userService.user$ | async as user">
+      <ion-item *ngFor="let clubCombination of userClubCombinationService.clubCombinations$ | async"
+                class="club-combination">
+        <ion-label>{{clubCombination.name}}</ion-label>
+        <ion-label>{{clubCombination.description}}</ion-label>
+        <ion-button [routerLink]="['edit-club-combination', clubCombination.id]">Edit</ion-button>
+        <ion-button (click)="userClubCombinationService.deleteUserClubCombination(user.id, clubCombination.id)">Delete</ion-button>
+
+      </ion-item>
+    </div>
+    <div class="ion-margin">
+      <ion-button expand="full" [routerLink]="['new-club-combination']">Add</ion-button>
+    </div>
+</ion-content>

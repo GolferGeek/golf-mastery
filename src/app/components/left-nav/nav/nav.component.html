@@ -1,0 +1,6 @@
+<p  *ngIf="userService.user$ | async as user">
+  <ion-button routerLink="/courses" routerDirection="forward" expand="block" fill="outline" color="primary">
+    <ion-icon slot="start" name="book"></ion-icon>
+    <ion-label>Courses</ion-label>
+  </ion-button>
+</p>

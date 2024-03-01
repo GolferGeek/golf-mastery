@@ -1,0 +1,4 @@
+<div *ngIf="userService.user$ | async as user">
+  {{ user.userName }}
+  <ion-button [routerLink]="['/user-information']" routerLinkActive="router-link-active" >User Information</ion-button>
+</div>
