@@ -13,12 +13,18 @@ export class CourseListPage implements OnInit {
   courses: CourseModel[] = [];
   state = 'MN';
   constructor(public courseService: CourseService, private userService: UserService) {
-    this.state = this.userService.userSubject.value?.state || 'M';
+    this.state = this.userService.userSubject.value?.state || 'MN';
   }
 
   async ionViewWillEnter() {
-    this.courses = await this.courseService.getCourses(this.state);
+    this.courseService.getCourses(this.state).subscribe(courses => {
+      this.courses = [];
+      courses.forEach((doc) => {
+        this.courses.push({id: doc.id, ...doc.data() as CourseModel);
+      });
+    });
   }
+
   ngOnInit() {
   }
 

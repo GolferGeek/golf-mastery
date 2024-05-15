@@ -9,9 +9,11 @@ import {
   deleteDoc,
   where,
   query,
-  getDocs
+  getDocs,
+  collectionData
 } from '@angular/fire/firestore'
 import {CourseModel} from '../models/course/course.model'
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class CourseService {
@@ -21,14 +23,9 @@ export class CourseService {
   constructor() {
   }
 
-  async getCourses(state: string) {
+  getCourses(state: string) {
     const coursesQuery = query(collection(this.firestore, `courses`), where('state', '==', state));
-    const coursesSnapshot = (await getDocs(coursesQuery));
-    const courses = [] as CourseModel[];
-    coursesSnapshot.forEach((doc) => {
-      courses.push(doc.data() as CourseModel);
-    });
-    return courses;
+    return collectionData(coursesQuery);
   }
 
   async getCourse(id: string): Promise<CourseModel> {
