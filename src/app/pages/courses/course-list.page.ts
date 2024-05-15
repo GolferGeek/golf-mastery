@@ -18,9 +18,8 @@ export class CourseListPage implements OnInit {
 
   async ionViewWillEnter() {
     this.courseService.getCourses(this.state).subscribe(courses => {
-      this.courses = [];
-      courses.forEach((doc) => {
-        this.courses.push({id: doc.id, ...doc.data() as CourseModel);
+      this.courses = courses.map(doc => {
+        return doc as CourseModel;
       });
     });
   }
