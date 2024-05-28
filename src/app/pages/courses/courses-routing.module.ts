@@ -1,26 +1,26 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {CourseListPage} from './course-list.page'
-
-
+import { CourseListPage } from './course-list.page';
+import { CourseEditPage } from './course-edit/course-edit.page';
+import { CourseDetailPage } from './course-detail/course-detail.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CourseListPage
+    component: CourseListPage,
   },
   {
     path: 'new-course',
-    loadChildren: () => import('./course-new/course-new.module').then(m => m.CourseNewPageModule)
+    component: CourseListPage,
   },
   {
     path: 'edit-course/:id',
-    loadChildren: () => import('./course-edit/course-edit.module').then( m => m.CourseEditPageModule)
+    component: CourseEditPage,
   },
   {
-    path: 'course-detail',
-    loadChildren: () => import('./course-detail/course-detail.module').then( m => m.CourseDetailPageModule)
-  }
+    path: 'course-detail/:id',
+    component: CourseDetailPage,
+  },
 ];
 
 @NgModule({

@@ -13,7 +13,7 @@ export class CourseListPage implements OnInit {
   courses: CourseModel[] = [];
   state = 'MN';
   constructor(public courseService: CourseService, private userService: UserService) {
-    this.state = this.userService.userSubject.value?.state || 'MN';
+    this.state = this.userService.user()?.state || 'MN';
   }
 
   async ionViewWillEnter() {

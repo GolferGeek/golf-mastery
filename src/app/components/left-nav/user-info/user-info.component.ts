@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed, effect } from '@angular/core';
 import {UserService} from '../../../shared/user.service'
 
 @Component({
@@ -7,9 +7,10 @@ import {UserService} from '../../../shared/user.service'
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
-
   constructor(public userService: UserService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.userService.user());
+  }
 
 }

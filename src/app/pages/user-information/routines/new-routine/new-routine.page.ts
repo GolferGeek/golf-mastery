@@ -26,7 +26,7 @@ export class NewRoutinePage implements OnInit {
   }
 
   async saveRoutine() {
-    await this.userRoutineService.addUserRoutine(this.userService.userSubject.value?.id as string, this.routine);
+    await this.userRoutineService.addUserRoutine(this.userService.user()?.id as string, this.routine);
     this.router.navigate(['/user-information/routines']);
   }
 

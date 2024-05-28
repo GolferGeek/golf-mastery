@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>course-edit</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/courses"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Course</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
-
-</ion-content>
+<app-course [course]="course()" [user]="user" [readonly]="false"></app-course>

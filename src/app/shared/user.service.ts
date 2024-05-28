@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {UserModel} from '../models/user.model'
 import {BehaviorSubject} from 'rxjs'
 import {getAuth, User} from '@angular/fire/auth'
@@ -18,8 +18,7 @@ export class UserService {
   private fbAuth = getAuth();
   private firestore = getFirestore();
 
-  userSubject = new BehaviorSubject<UserModel | null>(null);
-  user$ = this.userSubject.asObservable();
+  user = signal<UserModel | null>(null);
 
 
   constructor(
@@ -35,7 +34,7 @@ export class UserService {
         await this.userClubCombinationService.getClubCombinations(fbUser.uid);
         await this.userRoutineService.getRoutines(fbUser);
       } else {
-        this.userSubject.next(null);
+        this.user.set(null);
         this.userClubService.clearClubs()
         this.userClubCombinationService.clearClubCombinations();
         this.userRoutineService.clearRoutines();
@@ -47,7 +46,7 @@ export class UserService {
     onSnapshot(doc(this.firestore, `users/${fbUser.uid}`), async doc => {
       const foundUser = doc.data() as unknown as UserModel;
       if (foundUser) {
-        this.userSubject.next({
+        this.user.set({
           email: foundUser!['email'] || '',
           userName: foundUser!['userName'] || foundUser!['email'] || '',
           state: foundUser!['state'] || 'MN',
@@ -57,6 +56,8 @@ export class UserService {
           id: foundUser!['id'],
           isAdministrator: foundUser!['isAdministrator'] || false,
           gender: foundUser!['gender'] || '',
+          clubs: foundUser!['clubs'] || [],
+          clubCombinations: foundUser!['clubCombinations'] || []
         });
       } else {
         await this.addNewUser(fbUser);
@@ -74,6 +75,8 @@ export class UserService {
       handicap: 0,
       favoriteCourses: [],
       isAdministrator: false,
+      clubs: [],
+      clubCombinations: [],
       gender: 'M'
     };
     await setDoc(doc(this.firestore, 'users', newUser.id), newUser);

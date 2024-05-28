@@ -7,8 +7,8 @@
         </ion-toolbar>
       </ion-header>
       <div id="left-nav">
-        <span>
-          <h1 *ngIf="userService.user$ | async as user">Hello, {{ user.userName }}!</h1>
+        <span *ngIf="userService.user() as user">
+          <h1>Hello, {{ user.userName }}!</h1>
           <ion-list>
             <ion-item><a routerLink="user-information">User Info</a></ion-item>
             <ion-item><a routerLink="courses">Courses</a></ion-item>

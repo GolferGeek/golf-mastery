@@ -27,7 +27,7 @@ export class EditClubPage implements OnInit {
   }
 
   async saveClub() {
-    await this.userClubService.updateUserClub(this.userService.userSubject.value?.id as string, this.club);
+    await this.userClubService.updateUserClub(this.userService.user()?.id as string, this.club);
     this.router.navigate(['/user-information/clubs']);
   }
 

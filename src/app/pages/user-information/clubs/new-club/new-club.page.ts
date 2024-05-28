@@ -17,8 +17,8 @@ export class NewClubPage implements OnInit {
     type: 'driver',
     loft: 20,
     shaft: 'graphite',
-    brand: 'Titleist',
-    model: 'TSi1',
+    brand: 'TaylorMade',
+    model: 'M2',
     image: '',
     minDistance: 200,
     maxDistance: 300,
@@ -35,7 +35,7 @@ export class NewClubPage implements OnInit {
   }
 
   async saveClub() {
-    await this.userClubService.addUserClub(this.userService.userSubject.value?.id as string, this.club);
+    await this.userClubService.addUserClub(this.userService.user()?.id as string, this.club);
     this.router.navigate(['/user-information/clubs']);
   }
 }

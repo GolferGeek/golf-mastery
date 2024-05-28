@@ -28,7 +28,7 @@ export class EditRoutinePage implements OnInit {
   }
 
   async saveRoutine() {
-    await this.userRoutineService.updateUserRoutine(this.userService.userSubject.value?.id as string, this.routine);
+    await this.userRoutineService.updateUserRoutine(this.userService.user()?.id as string, this.routine);
     this.router.navigate(['/user-information/routines']);
   }
 }

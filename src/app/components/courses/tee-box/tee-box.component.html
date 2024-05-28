@@ -1,3 +1,60 @@
-<p>
-  tee-box works!
-</p>
+<ion-content>
+  <h1>Tee Boxes</h1>
+  <ion-grid>
+    <ion-row>
+      <ion-col>Name</ion-col>
+      <ion-col>Par</ion-col>
+      <ion-col>Yards</ion-col>
+      <ion-col>Rating (W)</ion-col>
+      <ion-col>Slope (W)</ion-col>
+      <ion-col>Rating (M)</ion-col>
+      <ion-col>Slope (M)</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let teeBox of teeBoxes; let i=index">
+      <ion-col>
+        <ion-input [(ngModel)]="teeBox.name"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="teeBox.par"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="teeBox.totalYards"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="teeBox.womensRating"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="teeBox.womensSlope"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="teeBox.mensRating"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="teeBox.mensSlope"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input [(ngModel)]="newTeeBox.name" placeholder="name"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="newTeeBox.par"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="newTeeBox.totalYards"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="newTeeBox.womensRating"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="newTeeBox.womensSlope"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="newTeeBox.mensRating"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input [(ngModel)]="newTeeBox.mensSlope"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>>

@@ -10,7 +10,7 @@
 
 <ion-content>
 
-  <div class="right-buttons" *ngIf="userService.user$ | async as user">
+  <div class="right-buttons" *ngIf="userService.user() as user">
     <ion-item *ngFor="let routine of userRoutineService.routines$ | async" class="routine">
       <ion-label>{{routine.name}}</ion-label>
       <ion-button [routerLink]="['edit-routine', routine.id]">Edit</ion-button>

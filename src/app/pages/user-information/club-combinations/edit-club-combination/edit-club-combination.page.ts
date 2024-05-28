@@ -29,7 +29,7 @@ export class EditClubCombinationPage implements OnInit {
   }
 
   async saveClubCombination() {
-    await this.userClubCombinationService.updateUserClubCombination(this.userService.userSubject.value?.id as string, this.clubCombination);
+    await this.userClubCombinationService.updateUserClubCombination(this.userService.user()?.id as string, this.clubCombination);
     this.router.navigate(['/user-information/club-combinations']);
   }
 }

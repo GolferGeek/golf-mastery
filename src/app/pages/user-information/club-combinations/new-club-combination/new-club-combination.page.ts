@@ -32,7 +32,7 @@ export class NewClubCombinationPage implements OnInit {
   ngOnInit() {
   }
   saveClubCombination() {
-    this.userClubCombinationService.addUserClubCombination(this.userService.userSubject.value?.id as string, this.clubCombination);
+    this.userClubCombinationService.addUserClubCombination(this.userService.user()?.id as string, this.clubCombination);
     this.router.navigate(['/user-information/club-combinations']);
   }
 

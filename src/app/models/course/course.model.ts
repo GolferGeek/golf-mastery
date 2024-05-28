@@ -12,5 +12,4 @@ export interface CourseModel {
   phone: string;
   website: string;
   teeBoxes: TeeboxModel[];
-  sides: SideModel[];
 }

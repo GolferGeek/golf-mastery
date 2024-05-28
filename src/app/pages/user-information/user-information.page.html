@@ -8,7 +8,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="userService.user$ | async as currentUser">
+<ion-content *ngIf="userService.user() as currentUser">
   <main>
     <div id="name-and-photo">
       <img [src]="currentUser.picture" alt="current user image">

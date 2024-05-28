@@ -24,8 +24,13 @@ export class CourseNewPage implements OnInit {
     zip: '',
     phone: '',
     website: '',
-    teeBoxes: [],
+    teeBoxes: [
+      {name: 'red', par: 72, totalYards: 5500, womensSlope: 110, womensRating: 75, mensSlope: 110, mensRating: 75},
+      {name: 'white', par: 72, totalYards: 6500, womensSlope: 120, womensRating: 70, mensSlope: 120, mensRating: 70 },
+      {name: 'blue', par: 72, totalYards: 7000, womensSlope: 130, womensRating: 65, mensSlope: 130, mensRating: 65 }
+    ],
   }
+  user: UserModel = this.userService.user();
 
   constructor(
     public userService: UserService,
