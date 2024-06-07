@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CourseListPage } from './course-list.page';
 import { CourseEditPage } from './course-edit/course-edit.page';
 import { CourseDetailPage } from './course-detail/course-detail.page';
+import { CourseNewPage } from './course-new/course-new.page';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'new-course',
-    component: CourseListPage,
+    component: CourseNewPage,
   },
   {
     path: 'edit-course/:id',

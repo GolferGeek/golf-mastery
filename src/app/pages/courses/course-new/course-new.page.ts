@@ -16,34 +16,19 @@ export class CourseNewPage implements OnInit {
 
 
   states = states;
-  course: Partial<CourseModel> = {
-    name: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
-    phone: '',
-    website: '',
-    teeBoxes: [
-      {name: 'red', par: 72, totalYards: 5500, womensSlope: 110, womensRating: 75, mensSlope: 110, mensRating: 75},
-      {name: 'white', par: 72, totalYards: 6500, womensSlope: 120, womensRating: 70, mensSlope: 120, mensRating: 70 },
-      {name: 'blue', par: 72, totalYards: 7000, womensSlope: 130, womensRating: 65, mensSlope: 130, mensRating: 65 }
-    ],
-  }
-  user: UserModel = this.userService.user();
 
   constructor(
-    public userService: UserService,
     private router: Router,
-    private courseService: CourseService,
+    public courseService: CourseService,
   ) {
   }
 
   ngOnInit() {
+    this.courseService.getNewCourse();
   }
 
-  saveCourse() {
-    this.courseService.addCourse(this.course);
+  saveCourse(course) {
+    this.courseService.addCourse(course);
     this.router.navigate(['/courses']);
   }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {CourseService} from '../../shared/course.service'
-import {CourseModel} from '../../models/course/course.model'
 import {UserService} from '../../shared/user.service'
 
 @Component({
@@ -10,18 +9,13 @@ import {UserService} from '../../shared/user.service'
 })
 export class CourseListPage implements OnInit {
 
-  courses: CourseModel[] = [];
   state = 'MN';
   constructor(public courseService: CourseService, private userService: UserService) {
     this.state = this.userService.user()?.state || 'MN';
   }
 
   async ionViewWillEnter() {
-    this.courseService.getCourses(this.state).subscribe(courses => {
-      this.courses = courses.map(doc => {
-        return doc as CourseModel;
-      });
-    });
+    this.courseService.getCourses(this.state);
   }
 
   ngOnInit() {

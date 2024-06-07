@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, OnInit, effect, signal} from '@angular/core';
 import {CourseModel} from '../../../models/course/course.model'
 import {ActivatedRoute, Router} from '@angular/router'
 import {states} from '../../../shared/data/state.data'
@@ -13,26 +13,22 @@ import {UserService} from '../../../shared/user.service'
 export class CourseEditPage implements OnInit {
   states = states;
   selectedId: string;
-  course = signal<CourseModel>(null)
-  user = this.userService.user();
 
   constructor(
     private route: ActivatedRoute,
-    private courseService: CourseService,
-    public userService: UserService,
+    public courseService: CourseService,
     private router: Router) {
+
 
   }
 
   ngOnInit() {
     this.selectedId = this.route.snapshot.paramMap.get('id');
-    this.courseService.getCourse(this.selectedId).then(foundCourse =>
-      this.course.set(foundCourse)
-    );
+    this.courseService.getCourse(this.selectedId)
   }
 
-  async saveCourse() {
-    await this.courseService.updateCourse(this.course());
+  async saveCourse(course: CourseModel) {
+    await this.courseService.updateCourse(course);
     this.router.navigate(['/courses']);
   }
 

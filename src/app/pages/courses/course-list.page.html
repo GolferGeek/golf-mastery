@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="course-list" *ngIf="courses">
+  <div class="course-list" *ngIf="courseService.courses$ | async as courses">
     <ion-item *ngFor="let course of courses" class="course">
       <ion-label>{{course.name}}</ion-label>
       <ion-label>{{course.state}}</ion-label>

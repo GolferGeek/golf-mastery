@@ -1,5 +1,5 @@
 
-<ion-content *ngIf="course !== null && user">
+<ion-content *ngIf="course">
   <ion-list aria-disabled="true">
     <ion-item>
       <ion-label position="floating">Course Title</ion-label>
@@ -15,7 +15,7 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Home State:</ion-label>
-      <ion-select [(ngModel)]="user.state">
+      <ion-select [(ngModel)]="course.state">
         <ion-select-option *ngFor="let state of states" [value]="state.abbreviation">
           {{ state.name }}
         </ion-select-option>

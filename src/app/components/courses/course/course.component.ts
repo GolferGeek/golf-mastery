@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, WritableSignal } from '@angular/core';
 import { CourseModel  } from '../../../models/course/course.model';
 import { states } from '../../../shared/data/state.data';
-import { UserModel } from 'src/app/models/user.model';
+import { UserService } from 'src/app/shared/user.service';
+import { CourseService } from 'src/app/shared/course.service';
 
 @Component({
   selector: 'app-course',
@@ -9,13 +10,21 @@ import { UserModel } from 'src/app/models/user.model';
   styleUrls: ['./course.component.scss'],
 })
 export class CourseComponent implements OnInit {
-  @Input() course: Partial<CourseModel>;
   @Input() readonly: boolean = true;
-  @Input() user: UserModel
+  @Output() saveCourseEvent = new EventEmitter<CourseModel>();
 
   states = states;
+  course: CourseModel = null;
 
-  constructor() { }
+  constructor(public courseService: CourseService) {
+    courseService.course$.subscribe(course => {
+      this.course = course;
+    });
+  }
+
+  saveCourse(course: CourseModel) {
+    this.saveCourseEvent.emit(course);
+  }
 
   ngOnInit() {}
 
